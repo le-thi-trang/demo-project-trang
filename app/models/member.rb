@@ -10,7 +10,8 @@ class Member < ApplicationRecord
   validates :avatar, content_type: ['image/jpeg', 'image/png', 'image/gif'],
                      size: { less_than: 10.megabytes, message: 'avatar size should be less than 10 megabytes' }
   validates :name, presence: true, length: { maximum: 50 },
-                   format: { with: /\A[a-zA-Z0-9.-]+\z/, message: 'can only contain alphanumeric characters, hyphens, and periods' }
+                   format: { with: /\A[a-zA-Z0-9.-]+\z/, message: 'can only contain alphanumeric characters, hyphens,
+                   and periods' }
   validates :information, length: { maximum: 300 }
   validates :phone_number, presence: true, length: { maximum: 20 },
                            format: { with: %r{\A[0-9()/.\-+ ]+\z}, message: 'only numbers allowed' }

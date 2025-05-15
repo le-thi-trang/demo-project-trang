@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Migration to create the `members` table.
+# Includes personal information, contact details, position, and timestamps.
 class CreateMembers < ActiveRecord::Migration[8.0]
   def change
     create_table :members do |t|

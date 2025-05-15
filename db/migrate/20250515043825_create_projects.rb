@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Migration to create the projects table for storing project details
 class CreateProjects < ActiveRecord::Migration[8.0]
   def change
     create_table :projects do |t|

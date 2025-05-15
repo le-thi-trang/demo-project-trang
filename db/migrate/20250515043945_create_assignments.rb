@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# Migration to create the assignments table, representing
+# the association between members and projects with a specific role.
 class CreateAssignments < ActiveRecord::Migration[8.0]
   def change
     create_table :assignments do |t|
