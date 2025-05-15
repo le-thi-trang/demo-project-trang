@@ -259,3 +259,88 @@ Processing by Rails::WelcomeController#index as HTML
 Completed 200 OK in 16ms (Views: 2.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
 
 
+  [1m[36mCACHE ActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2820803448817413150) /*application='DemoProjectTrang'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='DemoProjectTrang'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='DemoProjectTrang'*/[0m
+Migrating to DeviseCreateUsers (20250515051121)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='DemoProjectTrang'*/[0m
+  [1m[35m (18.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp(6), "remember_created_at" timestamp(6), "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='DemoProjectTrang'*/[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email") /*application='DemoProjectTrang'*/[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token") /*application='DemoProjectTrang'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250515051121') RETURNING "version" /*application='DemoProjectTrang'*/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT /*application='DemoProjectTrang'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(2820803448817413150) /*application='DemoProjectTrang'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='DemoProjectTrang'*/[0m
+Started GET "/" for 127.0.0.1 at 2025-05-15 12:12:49 +0700
+  
+NoMethodError (undefined method `devise' for User:Class):
+  
+app/models/user.rb:4:in `<class:User>'
+app/models/user.rb:1:in `<main>'
+config/routes.rb:2:in `block in <main>'
+config/routes.rb:1:in `<main>'
+Started GET "/" for 127.0.0.1 at 2025-05-15 12:13:14 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='DemoProjectTrang'*/[0m
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 1.0ms | GC: 0.3ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 6.7ms | GC: 0.4ms)
+  Rendered layouts/_rails_default.html.erb (Duration: 44.7ms | GC: 33.6ms)
+  Rendered layouts/_header.html.erb (Duration: 1.2ms | GC: 0.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 58.8ms | GC: 37.3ms)
+Completed 500 Internal Server Error in 107ms (ActiveRecord: 5.8ms (0 queries, 0 cached) | GC: 39.5ms)
+
+
+  
+ActionView::Template::Error (The asset 'logo.jpg' was not found in the load path.)
+Caused by: Propshaft::MissingAssetError (The asset 'logo.jpg' was not found in the load path.)
+
+Information for: ActionView::Template::Error (The asset 'logo.jpg' was not found in the load path.):
+    1: <header class="fixed-top">
+    2:   <nav id="navbar-example2" class="navbar bg-body-tertiary px-3">
+    3:     <%= link_to "#", class:"navbar-brand d-flex align-items-center gap-2" do %>
+    4:       <%= image_tag "logo.jpg", alt: "Logo", height: "60", class: "rounded-circle" %>
+    5:       Training App
+    6:     <% end %>
+    7:     <div class="nav-item dropdown d-flex justify-content-between align-items-center">
+  
+app/views/layouts/_header.html.erb:4
+app/views/layouts/_header.html.erb:3
+app/views/layouts/application.html.erb:22
+
+Information for cause: Propshaft::MissingAssetError (The asset 'logo.jpg' was not found in the load path.):
+  
+app/views/layouts/_header.html.erb:4
+app/views/layouts/_header.html.erb:3
+app/views/layouts/application.html.erb:22
+Started GET "/" for 127.0.0.1 at 2025-05-15 12:13:43 +0700
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 1.6ms | GC: 0.0ms)
+  Rendered layouts/_rails_default.html.erb (Duration: 7.7ms | GC: 0.0ms)
+  Rendered layouts/_header.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layouts/_sidebar.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.7ms | GC: 0.0ms)
+Completed 200 OK in 25ms (Views: 12.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.4ms)
+
+
+Started GET "/assets/application-91a0e8eb.css" for 127.0.0.1 at 2025-05-15 12:13:43 +0700
+Started GET "/assets/application-7d0c6059.js" for 127.0.0.1 at 2025-05-15 12:13:43 +0700
+Started GET "/assets/bootstrap.bundle.min-eb9f3474.js" for 127.0.0.1 at 2025-05-15 12:13:43 +0700
+Started GET "/" for 127.0.0.1 at 2025-05-15 12:14:47 +0700
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 1.9ms | GC: 0.1ms)
+  Rendered layouts/_rails_default.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layouts/_header.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered layouts/_sidebar.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.6ms | GC: 0.3ms)
+Completed 200 OK in 24ms (Views: 7.8ms | ActiveRecord: 2.0ms (0 queries, 0 cached) | GC: 0.6ms)
+
+

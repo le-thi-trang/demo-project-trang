@@ -22,6 +22,7 @@ gem 'stimulus-rails'
 gem 'devise'
 gem 'jbuilder'
 
+
 gem 'robocop'
 gem 'simplecov'
 
