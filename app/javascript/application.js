@@ -2,3 +2,7 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import * as bootstrap from "bootstrap"
+import "bootstrap"
+
+import "@fortawesome/fontawesome-free"
+import "bootstrap/dist/css/bootstrap.min.css";import * as bootstrap from "bootstrap"

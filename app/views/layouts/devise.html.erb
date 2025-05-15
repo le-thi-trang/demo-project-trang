@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "My Training App" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta charset="utf-8">
+    <%= render "layouts/rails_default" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body>
+    <p class="notice"><%= notice %></p>
+    <% if alert.present? %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= alert %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <%end%>
+    <%= yield %>
+  </body>
+</html>
