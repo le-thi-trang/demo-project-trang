@@ -3,16 +3,13 @@
     <h2 class="text-center mb-4">Log in</h2>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form-signin d-flex flex-column gap-3" }) do |f| %>
       <div class="field">
-        <%= f.label :email, class: "form-label", for: "user_email" %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", id: "user_email" %>
+        <%= f.label :phone_number, class: "form-label", for: "user_phone_number" %>
+        <%= f.text_field :phone_number, autofocus: true, autocomplete: "tel", class: "form-control", id: "user_phone_number" %>
       </div>
       <div class="field">
         <%= f.label :password, for: "user_password", class: "form-label" %>
         <%= f.password_field :password, autocomplete: "current-password", id: "user_password", class: "form-control" %>
       </div>
-      <%# <div id="passwordHelpBlock" class="form-text">
-        Your password must be 8-20 characters long
-      </div> %>
       <% if devise_mapping.rememberable? %>
         <div class="field form-check">
           <%= f.check_box :remember_me, class: "form-check-input", type: "checkbox" %>
