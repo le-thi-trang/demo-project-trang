@@ -1,8 +1,27 @@
 Rails.application.routes.draw do
+  get 'assignments/index'
+  get 'assignments/show'
+  get 'assignments/new'
+  get 'assignments/create'
+  get 'assignments/edit'
+  get 'assignments/update'
+  get 'assignments/destroy'
+  get 'projects/index'
+  get 'projects/show'
+  get 'projects/new'
+  get 'projects/create'
+  get 'projects/edit'
+  get 'projects/update'
+  get 'projects/destroy'
   devise_for :users
-  devise_scope :user do
-    root to: 'devise/sessions#new'
+  unauthenticated do
+    root to: redirect('/users/sign_in'), as: :unauthenticated_root
   end
+
+  authenticated :user do
+    root to: 'members#index', as: :authenticated_root
+  end
+  resources :members
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

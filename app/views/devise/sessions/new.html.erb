@@ -1,7 +1,7 @@
-<div class="container d-flex align-items-center justify-content-center" style="height: 100vh;">
+<div class="container d-flex align-items-center justify-content-center">
   <div class="w-25 mx-auto border border-secondary rounded p-3 " style="background-color: #CFE2FF;">
     <h2 class="text-center mb-4">Log in</h2>
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form-signin" }) do |f| %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form-signin d-flex flex-column gap-3" }) do |f| %>
       <div class="field">
         <%= f.label :email, class: "form-label", for: "user_email" %>
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", id: "user_email" %>
@@ -10,20 +10,20 @@
         <%= f.label :password, for: "user_password", class: "form-label" %>
         <%= f.password_field :password, autocomplete: "current-password", id: "user_password", class: "form-control" %>
       </div>
-      <div id="passwordHelpBlock" class="form-text">
+      <%# <div id="passwordHelpBlock" class="form-text">
         Your password must be 8-20 characters long
-      </div>
+      </div> %>
       <% if devise_mapping.rememberable? %>
         <div class="field form-check">
           <%= f.check_box :remember_me, class: "form-check-input", type: "checkbox" %>
-          <%= f.label :remember_me, class: "form-check-label" %>
+          <%= f.label :remember_me, class: "form-check-label fs-15" %>
         </div>
       <% end %>
       <div class="actions my-3 d-flex justify-content-center">
         <%= f.submit "Log in", class: "btn btn-primary" %>
       </div>
     <% end %>
-    <small class="">
+    <small class="d-flex justify-content-between">
       <%= render "devise/shared/links" %>
     </small>
   </div>
