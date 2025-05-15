@@ -6892,3 +6892,5 @@ Processing by Devise::RegistrationsController#new as HTML
 Completed 200 OK in 12ms (Views: 3.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.4ms)
 
 
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='DemoProjectTrang'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='DemoProjectTrang'*/[0m
