@@ -1,29 +1,53 @@
 <h2>Sign up</h2>
-
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
-
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
-
   <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
-
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
-
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
 <% end %>
-
 <%= render "devise/shared/links" %>
+<div class="container d-flex align-items-center justify-content-center">
+  <div class="w-25 mx-auto border border-secondary rounded p-3 " style="background-color: #CFE2FF;">
+    <h2 class="text-center mb-4">Sign up</h2>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form-signin d-flex flex-column gap-3" }) do |f| %>
+     <div class="field">
+       <%= f.label :name %>
+     </div>
+      <div class="field">
+        <%= f.label :phone_number, class: "form-label", for: "user_phone_number" %>
+        <%= f.text_field :phone_number, autofocus: true, autocomplete: "tel", class: "form-control", id: "user_phone_number" %>
+      </div>
+      <div class="field">
+        <%= f.label :password, for: "user_password", class: "form-label" %>
+        <%= f.password_field :password, autocomplete: "current-password", id: "user_password", class: "form-control" %>
+      </div>
+      <% if devise_mapping.rememberable? %>
+        <div class="field form-check">
+          <%= f.check_box :remember_me, class: "form-check-input", type: "checkbox" %>
+          <%= f.label :remember_me, class: "form-check-label fs-15" %>
+        </div>
+      <% end %>
+      <div class="actions my-3 d-flex justify-content-center">
+        <%= f.submit "Log in", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+    <small class="d-flex justify-content-between">
+      <%= render "devise/shared/links" %>
+    </small>
+  </div>
+</div>
