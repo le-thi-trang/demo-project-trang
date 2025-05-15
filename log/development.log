@@ -191,3 +191,4 @@ Processing by Rails::WelcomeController#index as HTML
 Completed 200 OK in 16ms (Views: 2.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
 
 
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='DemoProjectTrang'*/[0m
