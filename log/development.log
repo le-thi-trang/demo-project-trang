@@ -202,3 +202,60 @@ Processing by Rails::WelcomeController#index as HTML
 Completed 200 OK in 26ms (Views: 5.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
 
 
+  [1m[36mCACHE ActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2820803448817413150) /*application='DemoProjectTrang'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='DemoProjectTrang'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (12.9ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='DemoProjectTrang'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-05-15 04:41:19.564541', '2025-05-15 04:41:19.564546') RETURNING "key" /*application='DemoProjectTrang'*/[0m
+Migrating to CreateMembers (20250515043328)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='DemoProjectTrang'*/[0m
+  [1m[35m (5.5ms)[0m  [1m[35mCREATE TABLE "members" ("id" bigserial primary key, "name" character varying(50) NOT NULL, "information" character varying(300), "phone_number" character varying(20) NOT NULL, "date_of_birth" date NOT NULL, "position" integer NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='DemoProjectTrang'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250515043328') RETURNING "version" /*application='DemoProjectTrang'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='DemoProjectTrang'*/[0m
+Migrating to CreateActiveStorageTables (20250515043434)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='DemoProjectTrang'*/[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE TABLE "active_storage_blobs" ("id" bigserial primary key, "key" character varying NOT NULL, "filename" character varying NOT NULL, "content_type" character varying, "metadata" text, "service_name" character varying NOT NULL, "byte_size" bigint NOT NULL, "checksum" character varying, "created_at" timestamp(6) NOT NULL) /*application='DemoProjectTrang'*/[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_blobs_on_key" ON "active_storage_blobs" ("key") /*application='DemoProjectTrang'*/[0m
+  [1m[35m (3.6ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" bigserial primary key, "name" character varying NOT NULL, "record_type" character varying NOT NULL, "record_id" bigint NOT NULL, "blob_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_c3b3935057"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+) /*application='DemoProjectTrang'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE INDEX "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments" ("blob_id") /*application='DemoProjectTrang'*/[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_attachments_uniqueness" ON "active_storage_attachments" ("record_type", "record_id", "name", "blob_id") /*application='DemoProjectTrang'*/[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE TABLE "active_storage_variant_records" ("id" bigserial primary key, "blob_id" bigint NOT NULL, "variation_digest" character varying NOT NULL, CONSTRAINT "fk_rails_993965df05"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+) /*application='DemoProjectTrang'*/[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_variant_records_uniqueness" ON "active_storage_variant_records" ("blob_id", "variation_digest") /*application='DemoProjectTrang'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250515043434') RETURNING "version" /*application='DemoProjectTrang'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='DemoProjectTrang'*/[0m
+Migrating to CreateProjects (20250515043825)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='DemoProjectTrang'*/[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "projects" ("id" bigserial primary key, "name" character varying NOT NULL, "information" character varying, "deadline" timestamp(6), "type" integer NOT NULL, "status" integer NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL) /*application='DemoProjectTrang'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250515043825') RETURNING "version" /*application='DemoProjectTrang'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*application='DemoProjectTrang'*/[0m
+Migrating to CreateAssignments (20250515043945)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='DemoProjectTrang'*/[0m
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE TABLE "assignments" ("id" bigserial primary key, "project_id" bigint NOT NULL, "member_id" bigint NOT NULL, "role" integer NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_4d3d2c839c"
+FOREIGN KEY ("project_id")
+  REFERENCES "projects" ("id")
+, CONSTRAINT "fk_rails_9fe2faecd5"
+FOREIGN KEY ("member_id")
+  REFERENCES "members" ("id")
+) /*application='DemoProjectTrang'*/[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE INDEX "index_assignments_on_project_id" ON "assignments" ("project_id") /*application='DemoProjectTrang'*/[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE INDEX "index_assignments_on_member_id" ON "assignments" ("member_id") /*application='DemoProjectTrang'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250515043945') RETURNING "version" /*application='DemoProjectTrang'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='DemoProjectTrang'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(2820803448817413150) /*application='DemoProjectTrang'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='DemoProjectTrang'*/[0m
+Started GET "/" for 127.0.0.1 at 2025-05-15 11:49:39 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='DemoProjectTrang'*/[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/trantuanhung/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/railties-8.0.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/trantuanhung/.rbenv/versions/3.2.0/lib/ruby/gems/3.2.0/gems/railties-8.0.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.2ms | GC: 0.0ms)
+Completed 200 OK in 16ms (Views: 2.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
