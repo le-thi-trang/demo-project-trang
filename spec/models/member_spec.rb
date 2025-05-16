@@ -42,9 +42,9 @@ RSpec.describe Member, type: :model do
     it { should validate_length_of(:phone_number).is_at_most(20) }
     it 'validates phone number format' do
       valid_member = build(:member, phone_number: '(+84) 123-456-7890')
-      invalide_member = build(:member, phone_number: '1234567abc')
+      invalid_member = build(:member, phone_number: '1234567abc')
       expect(valid_member).to be_valid
-      expect(invalide_member).to_not be_valid
+      expect(invalid_member).to_not be_valid
     end
 
     it { should validate_presence_of(:date_of_birth) }
