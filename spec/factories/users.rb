@@ -3,7 +3,7 @@ FactoryBot.define do
     email { Faker::Internet.unique.email }
     password { 'Password123!' }
     phone_number { Faker::PhoneNumber.phone_number }
-    name { 'John.Doe-123' }
+    name { "#{Faker::Name.first_name}.#{Faker::Name.last_name}-#{rand(1000)}" }
     date_of_birth { Faker::Date.between(from: 60.years.ago.to_date + 1.day, to: Date.today - 1.day) }
     position { User.positions.keys.sample }
     information { Faker::Lorem.paragraph }
