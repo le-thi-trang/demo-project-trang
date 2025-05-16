@@ -18,11 +18,32 @@
             <%= render "layouts/sidebar" %>
           </div>
           <div class="col-md-10">
-            <p class="notice"><%= notice %></p>
-            <p class="alert"><%= alert %></p>
+            <div class="toast align-items-center text-bg-success position-fixed top-0 end-0 p-3" style="z-index: 9999;" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="d-flex">
+                <div class="toast-body">
+                  <%= notice %>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+            </div>
+            <% if alert.present? %>
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <%= alert %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            <%end%>
             <%= yield %>
           </div>
         </div>
       </div>
+      <% if notice.present? %>
+        <script>
+          document.addEventListener("DOMContentLoaded", function() {
+            const toastEl = document.querySelector(".toast");
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+          });
+        </script>
+      <% end %>
     </body>
   </html>
