@@ -7,8 +7,7 @@ class Member < ApplicationRecord
   has_many :projects, through: :assignments
   has_one_attached :avatar
 
-  validates :avatar, content_type: ['image/jpeg', 'image/png', 'image/gif'],
-                     size: { less_than: 10.megabytes }
+  validate :avatar_format
   validates :name, presence: true, length: { maximum: 50 },
                    format: { with: /\A[a-zA-Z0-9.-]+\z/, message: 'can only contain alphanumeric characters, hyphens,
                    and periods' }
@@ -41,6 +40,16 @@ class Member < ApplicationRecord
       errors.add(:date_of_birth, "can't be in the future")
     elsif date_of_birth.present? && date_of_birth < 60.years.ago.to_date
       errors.add(:date_of_birth, "can't be older than 60 years")
+    end
+  end
+
+  def avatar_format
+    return unless avatar.attached?
+
+    if !avatar.content_type.in?(%w[image/jpeg image/png image/gif])
+      errors.add(:avatar, 'must be a JPEG, PNG, or GIF')
+    elsif avatar.byte_size > 10.megabytes
+      errors.add(:avatar, 'size must be less than 10MB')
     end
   end
 end
