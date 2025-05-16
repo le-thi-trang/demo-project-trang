@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :member do
-    name { 'John.Doe-123' }
+    name { "#{Faker::Name.first_name}.#{Faker::Name.last_name}-#{rand(1000)}" }
     phone_number { Faker::PhoneNumber.phone_number }
     date_of_birth { Faker::Date.backward(days: 365 * 25) }
     position { Member.positions.keys.sample }
