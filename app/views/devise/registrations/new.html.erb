@@ -25,9 +25,10 @@
   <div class="w-25 mx-auto border border-secondary rounded p-3 " style="background-color: #CFE2FF;">
     <h2 class="text-center mb-4">Sign up</h2>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form-signin d-flex flex-column gap-3" }) do |f| %>
-     <div class="field">
-       <%= f.label :name %>
-     </div>
+      <div class="field">
+        <%= f.label :name, class: "form-label", for: "user_name" %>
+        <%= f.text_field :phone_number, autofocus: true, autocomplete: "tel", class: "form-control", id: "user_phone_number" %>
+      </div>
       <div class="field">
         <%= f.label :phone_number, class: "form-label", for: "user_phone_number" %>
         <%= f.text_field :phone_number, autofocus: true, autocomplete: "tel", class: "form-control", id: "user_phone_number" %>
