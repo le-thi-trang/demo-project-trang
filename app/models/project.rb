@@ -27,7 +27,7 @@ class Project < ApplicationRecord
   private
 
   def deadline_is_valid
-    return if deadline.is_a?(Date)
+    return if deadline.respond_to?(:to_date)
 
     errors.add(:deadline, 'is not a valid date')
   end

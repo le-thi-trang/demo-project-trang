@@ -7,8 +7,7 @@ class Member < ApplicationRecord
   has_many :projects, through: :assignments
   has_one_attached :avatar
 
-  validates :avatar, content_type: ['image/jpeg', 'image/png', 'image/gif'],
-                     size: { less_than: 10.megabytes, message: 'avatar size should be less than 10 megabytes' }
+  validate :avatar_format
   validates :name, presence: true, length: { maximum: 50 },
                    format: { with: /\A[a-zA-Z0-9.-]+\z/, message: 'can only contain alphanumeric characters, hyphens,
                    and periods' }
@@ -16,9 +15,7 @@ class Member < ApplicationRecord
   validates :phone_number, presence: true, length: { maximum: 20 },
                            format: { with: %r{\A[0-9()/.\-+ ]+\z}, message: 'only numbers allowed' }
   validates :date_of_birth, presence: true
-  validate :date_of_birth_is_valid
-  validate :date_of_birth_not_in_future
-  validate :date_of_birth_not_older_than_60_years
+  validate :validate_date_of_birth
   validates :position, presence: true
 
   enum :position, {
@@ -33,21 +30,26 @@ class Member < ApplicationRecord
 
   private
 
-  def date_of_birth_is_valid
-    return if date_of_birth.is_a?(Date)
+  def validate_date_of_birth
+    unless date_of_birth.is_a?(Date)
+      errors.add(:date_of_birth, 'is not a valid date')
+      return
+    end
 
-    errors.add(:date_of_birth, 'is not a valid date')
+    if date_of_birth.present? && date_of_birth > Date.today
+      errors.add(:date_of_birth, "can't be in the future")
+    elsif date_of_birth.present? && date_of_birth < 60.years.ago.to_date
+      errors.add(:date_of_birth, "can't be older than 60 years")
+    end
   end
 
-  def date_of_birth_not_in_future
-    return unless date_of_birth.present? && date_of_birth > Date.today
+  def avatar_format
+    return unless avatar.attached?
 
-    errors.add(:date_of_birth, "can't be in the future")
-  end
-
-  def date_of_birth_not_older_than_60_years
-    return unless date_of_birth.present? && date_of_birth < 60.years.ago.to_date
-
-    errors.add(:date_of_birth, "can't be older than 60 years")
+    if !avatar.content_type.in?(%w[image/jpeg image/png image/gif])
+      errors.add(:avatar, 'must be a JPEG, PNG, or GIF')
+    elsif avatar.byte_size > 10.megabytes
+      errors.add(:avatar, 'size must be less than 10MB')
+    end
   end
 end
