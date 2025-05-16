@@ -56,3 +56,4 @@ build-iPhoneSimulator/
 # .rubocop-https?--*
 /log/development.log
 /node_modules
+/log/test.log
