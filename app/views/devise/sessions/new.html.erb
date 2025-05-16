@@ -3,8 +3,8 @@
     <h2 class="text-center mb-4">Log in</h2>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form-signin d-flex flex-column gap-3" }) do |f| %>
       <div class="field">
-        <%= f.label :phone_number, class: "form-label", for: "user_phone_number" %>
-        <%= f.text_field :phone_number, autofocus: true, autocomplete: "tel", class: "form-control", id: "user_phone_number" %>
+        <%= f.label :email, class: "form-label", for: "user_email" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", id: "user_email" %>
       </div>
       <div class="field">
         <%= f.label :password, for: "user_password", class: "form-label" %>
@@ -17,7 +17,7 @@
         </div>
       <% end %>
       <div class="actions my-3 d-flex justify-content-center">
-        <%= f.submit "Log in", class: "btn btn-primary" %>
+        <%= f.submit "Log in", class: "btn btn-primary w-100" %>
       </div>
     <% end %>
     <small class="d-flex justify-content-between">
