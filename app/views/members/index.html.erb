@@ -2,13 +2,22 @@
   <div>
     <h1>Members Management</h1>
   </div>
-  <%= render "layouts/search_form", model_name: "Member" %>
+  <div class="d-flex justify-content-end align-items-center gap-3">
+    <%= render "layouts/search_form", model_name: "Member" %>
+    <div class="d-flex justify-content-end">
+      <%= link_to new_member_path, class: "btn btn-primary" do %>
+        <i class="fa-solid fa-plus"></i>
+        New Member
+      <% end %>
+    </div>
+  </div>
   <div>
     <table class="table table-light">
       <thead>
         <tr>
           <th scope="col">No.</th>
           <th scope="col">Name</th>
+          <th scope="col">Avatar</th>
           <th scope="col">Phone number</th>
           <th scope="col">Date of birth</th>
           <th scope="col">Position</th>
@@ -23,18 +32,21 @@
             <tr>
               <th scope="row"><%= ((params[:page].presence || 1).to_i - 1) * 10 + index + 1 %></th>
               <td><%= member.name %></td>
+              <td><%= image_tag member.avatar.variant(resize_to_limit: [50, 50]), class: "rounded-circle" if member.avatar.attached? %></td>
               <td><%= member.phone_number %></td>
               <td><%= member.date_of_birth %></td>
               <td><%= member.position %></td>
               <td><%= member.created_at.to_date %></td>
               <td><%= member.updated_at.to_date %></td>
-              <td class="d-flex flex-row gap-2">
-                <%= button_to member_path(member), method: :delete, class: "btn btn-danger" do %>
-                  Delete
-                <%end%>
-                <%= button_to member_path(member), method: :delete, class: "btn btn-primary" do %>
-                  Edit
-                <%end%>
+              <td>
+                <div class="d-flex flex-row gap-2">
+                  <%= button_to member_path(member), method: :delete, class: "btn btn-danger" do %>
+                    Delete
+                  <%end%>
+                  <%= button_to member_path(member), class: "btn btn-primary" do %>
+                    Edit
+                  <%end%>
+                </div>
               </td>
             </tr>
           <% end %>

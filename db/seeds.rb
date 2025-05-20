@@ -9,7 +9,24 @@
 #   end
 require 'faker'
 
-10.times do
+user = User.new(
+  email: 'lethitrang123@gmail.com',
+  password: '123456',
+  phone_number: Faker::PhoneNumber.phone_number,
+  name: "#{Faker::Name.first_name}.#{Faker::Name.last_name}-#{rand(1000)}",
+  date_of_birth: Faker::Date.between(from: 60.years.ago.to_date + 1.day, to: Date.today - 1.day),
+  position: User.positions.keys.sample,
+  information: Faker::Lorem.paragraph
+)
+
+avatar_path = Rails.root.join('spec/fixtures/files/avatar.png')
+if File.exist?(avatar_path)
+  user.avatar.attach(io: File.open(avatar_path), filename: 'avatar.png', content_type: 'image/png')
+end
+
+user.save!
+
+20.times do
   member = Member.new(
     name: "#{Faker::Name.first_name}.#{Faker::Name.last_name}-#{rand(1000)}",
     phone_number: Faker::PhoneNumber.phone_number,

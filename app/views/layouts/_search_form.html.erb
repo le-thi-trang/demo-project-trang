@@ -1,4 +1,4 @@
-<div class="mb-3 d-flex justify-content-end">
+<div class="d-flex justify-content-end">
   <%= form_with url: members_path, method: :get, local: true, class: "d-flex" do |f| %>
     <%= f.text_field :q, { value: params[:q], placeholder: "Search #{model_name}", class: "form-control me-2" } %>
     <%= f.submit "Search", class: "btn btn-primary" %>
