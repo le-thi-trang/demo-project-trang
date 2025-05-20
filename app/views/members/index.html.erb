@@ -43,7 +43,7 @@
                   <%= button_to member_path(member), method: :delete, class: "btn btn-danger" do %>
                     Delete
                   <%end%>
-                  <%= button_to member_path(member), class: "btn btn-primary" do %>
+                  <%= button_to edit_member_path(member), method: :get, class: "btn btn-primary" do %>
                     Edit
                   <%end%>
                 </div>

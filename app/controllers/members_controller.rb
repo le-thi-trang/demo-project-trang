@@ -9,6 +9,7 @@ class MembersController < ApplicationController
   end
 
   def show
+    
   end
 
   def new
@@ -28,6 +29,11 @@ class MembersController < ApplicationController
   end
 
   def update
+    if @member.update(member_params)
+      redirect_to members_path, notice: 'Member was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   def destroy
