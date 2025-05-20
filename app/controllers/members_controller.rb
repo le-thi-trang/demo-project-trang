@@ -9,7 +9,6 @@ class MembersController < ApplicationController
   end
 
   def show
-    
   end
 
   def new
@@ -36,7 +35,10 @@ class MembersController < ApplicationController
     end
   end
 
+
   def destroy
+    @member.destroy
+    redirect_to members_path, notice: 'Member was successfully destroyed.'
   end
 
   private

@@ -1,4 +1,4 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="<%= modal_id%>" tabindex="-1" aria-labelledby="<%= modal_label_id%>" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -10,7 +10,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <%= button_to destroy_user_session_path, method: :delete, class: "btn btn-danger" do %>
+        <%= button_to modal_path, method: :delete, class: "btn btn-danger" do %>
           <%= modal_button %>
         <% end %>
       </div>

@@ -24,4 +24,4 @@
     </li>
   </nav>
 </header>
-<%= render "layouts/modal", modal_title: "Logout", modal_content: "Are you sure you want to logout?", modal_button: "Logout" %>
+<%= render "layouts/modal", modal_id: "exampleModal", modal_label_id: "exampleModalLabel", modal_title: "Logout", modal_content: "Are you sure you want to logout?", modal_path: destroy_user_session_path, modal_button: "Logout" %>
