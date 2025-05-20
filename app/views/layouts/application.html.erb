@@ -31,12 +31,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
             <%end%>
-            <%= yield %>
+            <div class="p-5">
+              <%= yield %>
+            </div>
           </div>
         </div>
       </div>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
-      <%# <%= javascript_importmap_tags %> 
+      <%# <%= javascript_importmap_tags %>
       <% if notice.present? %>
         <script>
           document.addEventListener("DOMContentLoaded", function() {

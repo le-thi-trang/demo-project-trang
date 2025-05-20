@@ -7,3 +7,21 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+require 'faker'
+
+10.times do
+  member = Member.new(
+    name: "#{Faker::Name.first_name}.#{Faker::Name.last_name}-#{rand(1000)}",
+    phone_number: Faker::PhoneNumber.phone_number,
+    date_of_birth: Faker::Date.backward(days: 365 * 25),
+    position: Member.positions.keys.sample,
+    information: Faker::Lorem.paragraph
+  )
+
+  avatar_path = Rails.root.join('spec/fixtures/files/avatar.png')
+  if File.exist?(avatar_path)
+    member.avatar.attach(io: File.open(avatar_path), filename: 'avatar.png', content_type: 'image/png')
+  end
+
+  member.save!
+end

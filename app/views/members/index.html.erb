@@ -1,2 +1,48 @@
-<h1>Members#index</h1>
-<p>Find me in app/views/members/index.html.erb</p>
+<div class="d-flex flex-column gap-3">
+  <div>
+    <h1>Members Management</h1>
+  </div>
+  <%= render "layouts/search_form", model_name: "Member" %>
+  <div>
+    <table class="table table-light">
+      <thead>
+        <tr>
+          <th scope="col">No.</th>
+          <th scope="col">Name</th>
+          <th scope="col">Phone number</th>
+          <th scope="col">Date of birth</th>
+          <th scope="col">Position</th>
+          <th scope="col">Created at</th>
+          <th scope="col">Updated at</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @members.present?%>
+          <% @members.each_with_index do |member, index| %>
+            <tr>
+              <th scope="row"><%= ((params[:page].presence || 1).to_i - 1) * 10 + index + 1 %></th>
+              <td><%= member.name %></td>
+              <td><%= member.phone_number %></td>
+              <td><%= member.date_of_birth %></td>
+              <td><%= member.position %></td>
+              <td><%= member.created_at.to_date %></td>
+              <td><%= member.updated_at.to_date %></td>
+              <td class="d-flex flex-row gap-2">
+                <%= button_to member_path(member), method: :delete, class: "btn btn-danger" do %>
+                  Delete
+                <%end%>
+                <%= button_to member_path(member), method: :delete, class: "btn btn-primary" do %>
+                  Edit
+                <%end%>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <p>No members found!</p>
+        <% end%>
+      </tbody>
+    </table>
+    <%= paginate @members %>
+  </div>
+</div>

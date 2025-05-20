@@ -1,25 +1,26 @@
 Rails.application.routes.draw do
-  get 'assignments/index'
+  get '/assignments', to: 'assignments#index'
   get 'assignments/show'
   get 'assignments/new'
   get 'assignments/create'
   get 'assignments/edit'
   get 'assignments/update'
   get 'assignments/destroy'
-  get 'projects/index'
+  get '/projects', to: 'projects#index'
   get 'projects/show'
   get 'projects/new'
   get 'projects/create'
   get 'projects/edit'
   get 'projects/update'
   get 'projects/destroy'
+  get '/members', to: 'members#index'
   devise_for :users
   unauthenticated do
     root to: redirect('/users/sign_in'), as: :unauthenticated_root
   end
 
   authenticated :user do
-    root to: 'members#index', as: :authenticated_root
+    root to: redirect('/members'), as: :authenticated_root
   end
   resources :members
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
