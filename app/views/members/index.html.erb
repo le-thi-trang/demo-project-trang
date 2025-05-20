@@ -31,7 +31,9 @@
           <% @members.each_with_index do |member, index| %>
             <tr>
               <th scope="row"><%= ((params[:page].presence || 1).to_i - 1) * 10 + index + 1 %></th>
-              <td><%= member.name %></td>
+              <td>
+                <%= link_to member.name, member_path(member) %>
+              </td>
               <td><%= image_tag member.avatar.variant(resize_to_limit: [50, 50]), class: "rounded-circle" if member.avatar.attached? %></td>
               <td><%= member.phone_number %></td>
               <td><%= member.date_of_birth %></td>
