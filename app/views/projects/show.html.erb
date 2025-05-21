@@ -3,7 +3,7 @@
     <h1><%=@project.name%></h1>
   </div>
   <div>
-    <%= form_for(@project,html: { class: "form d-flex flex-column gap-3 w-50", multipart: true, method: :get }) do |f|  %>
+    <%= form_for(@project,html: { class: "form d-flex flex-column gap-3 w-50", method: :get }) do |f|  %>
       <fieldset disabled class="d-flex flex-column gap-3">
         <div class="field">
           <%= f.label :infomation, class: "form-label", for: "project_information" %>

@@ -36,6 +36,8 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 require 'devise'
+require 'rails-controller-testing'
+Rails::Controller::Testing.install
 
 require 'shoulda/matchers'
 Shoulda::Matchers.configure do |config|

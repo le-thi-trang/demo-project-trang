@@ -2,7 +2,15 @@
   <div>
     <h1>Projects Management</h1>
   </div>
-  <%= render "layouts/search_form", model_name: "Project", path: projects_path %>
+  <div class="d-flex justify-content-end align-items-center gap-3">
+    <%= render "layouts/search_form", model_name: "Project", path: projects_path %>
+    <div class="d-flex justify-content-end">
+      <%= link_to new_project_path, class: "btn btn-primary" do %>
+        <i class="fa-solid fa-plus"></i>
+        New Project
+      <% end %>
+    </div>
+  </div>
   <div>
     <% if @projects.present? %>
       <table class="table table-light">

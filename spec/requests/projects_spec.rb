@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Projects', type: :request do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, name: 'lu3myxrc') }
   let!(:project1) { create(:project, name: 'Alpha-Pro') }
   let!(:project2) { create(:project, name: 'Beta-Pro') }
   let!(:project3) { create(:project, name: 'Gam-Search') }
@@ -59,33 +59,59 @@ RSpec.describe 'Projects', type: :request do
     end
   end
 
-  # describe 'GET /projects/:id' do
-  #   context 'when not signed in' do
-  #     it 'redirects to sign in page' do
-  #       get project_path(project1)
-  #       expect(response).to redirect_to(new_user_session_path)
-  #     end
-  #   end
+  describe 'GET /projects/:id' do
+    context 'when not signed in' do
+      it 'redirects to sign in page' do
+        get project_path(project1)
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
 
-  #   context 'when signed in' do
-  #     before { sign_in user }
+    context 'when signed in' do
+      before { sign_in user }
 
-  #     it 'shows the project' do
-  #       get project_path(project1)
-  #       expect(response).to be_successful
-  #       expect(response.body).to include(project1.name)
-  #     end
-  #   end
-  # end
+      it 'shows the project' do
+        get project_path(project1)
+        expect(response).to be_successful
+        expect(response.body).to include(project1.name)
+      end
+    end
+  end
 
-  # describe 'GET /projects/new' do
-  #   context 'when signed in' do
-  #     before { sign_in user }
+  describe 'GET /projects/new' do
+    context 'when signed in' do
+      before { sign_in user }
 
-  #     it 'renders the new project form' do
-  #       get new_project_path
-  #       expect(response).to be_successful
-  #     end
-  #   end
-  # end
+      it 'renders the new project form' do
+        get new_project_path
+        expect(response).to be_successful
+      end
+    end
+  end
+
+  describe 'POST /projects' do
+    context 'when signed in' do
+      before { sign_in user }
+
+      it 'creates a new project with valid attributes' do
+        expect do
+          post projects_path,
+               params: { project: { name: '9njiu92j', information: 'Project info', deadline: '2023-12-31', project_type: 'lap',
+                                    status: 'doing' } }
+        end.to change(Project, :count).by(1)
+        expect(response).to redirect_to(projects_path)
+        follow_redirect!
+        expect(response.body).to include('Project was successfully created.')
+      end
+
+      it 'does not create a project with invalid attributes' do
+        expect do
+          post projects_path,
+               params: { project: { name: '', information: '', deadline: '', project_type: '', status: '' } }
+        end.not_to change(Project, :count)
+        expect(response.body).to include('error')
+        expect(response).to render_template(:new)
+      end
+    end
+  end
 end
