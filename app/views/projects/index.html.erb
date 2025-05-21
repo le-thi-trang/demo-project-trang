@@ -23,7 +23,7 @@
             <tr>
               <th scope="row"><%= ((params[:page].presence || 1).to_i - 1) * 10 + index + 1 %></th>
               <td><%= project.name %></td>
-              <td><%= project.deadline %></td>
+              <td><%= project.deadline.strftime("%d-%m-%Y %H:%M") %></td>
               <td><%= project.project_type %></td>
               <td><%= project.status %></td>
               <td><%= project.created_at.to_date %></td>
