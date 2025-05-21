@@ -1,0 +1,63 @@
+<div class="d-flex flex-column gap-3">
+  <div>
+    <h1>Members Management</h1>
+  </div>
+  <div class="d-flex justify-content-end align-items-center gap-3">
+    <%= render "layouts/search_form", model_name: "Member", path: members_path %>
+    <div class="d-flex justify-content-end">
+      <%= link_to new_member_path, class: "btn btn-primary" do %>
+        <i class="fa-solid fa-plus"></i>
+        New Member
+      <% end %>
+    </div>
+  </div>
+  <div>
+    <% if @members.present? %>
+      <table class="table table-light">
+        <thead>
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Name</th>
+            <th scope="col">Avatar</th>
+            <th scope="col">Phone number</th>
+            <th scope="col">Date of birth</th>
+            <th scope="col">Position</th>
+            <th scope="col">Created at</th>
+            <th scope="col">Updated at</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @members.each_with_index do |member, index| %>
+            <tr>
+              <th scope="row"><%= ((params[:page].presence || 1).to_i - 1) * 10 + index + 1 %></th>
+              <td>
+                <%= link_to member.name, member_path(member) %>
+              </td>
+              <td><%= image_tag member.avatar.variant(resize_to_limit: [50, 50]), class: "rounded-circle" if member.avatar.attached? %></td>
+              <td><%= member.phone_number %></td>
+              <td><%= member.date_of_birth %></td>
+              <td><%= member.position %></td>
+              <td><%= member.created_at.to_date %></td>
+              <td><%= member.updated_at.to_date %></td>
+              <td>
+                <div class="d-flex flex-row gap-2">
+                  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteMemberModal<%= member.id %>">
+                    Delete
+                  </button>
+                  <%= button_to edit_member_path(member), method: :get, class: "btn btn-primary" do %>
+                    Edit
+                  <%end%>
+                </div>
+              </td>
+            </tr>
+            <%= render "layouts/modal", member: member, modal_id: "deleteMemberModal#{member.id}", modal_label_id: "deleteMemberModalLabel#{member.id}",  modal_title: "Delete #{member.name}", modal_content: "Are you sure you want to delete #{member.name}?", modal_path: member_path(member), modal_button: "Delete" %>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @members %>
+    <% else %>
+      <p>No members found!</p>
+    <% end%>
+  </div>
+</div>

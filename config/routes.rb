@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get '/members', to: 'members#index'
+
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -9,8 +11,10 @@ Rails.application.routes.draw do
   end
 
   authenticated :user do
-    root to: redirect('/users/edit'), as: :authenticated_root
+    root to: redirect('/members'), as: :authenticated_root
   end
+
+  resources :members
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
