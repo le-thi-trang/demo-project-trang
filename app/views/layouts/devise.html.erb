@@ -10,7 +10,14 @@
     <%= javascript_importmap_tags %>
   </head>
   <body>
-    <p class="notice"><%= notice %></p>
+    <div class="toast align-items-center text-bg-success position-fixed top-0 end-0 p-3" style="z-index: 9999;" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          <%= notice %>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
     <% if alert.present? %>
       <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <%= alert %>
@@ -18,5 +25,19 @@
       </div>
     <%end%>
     <%= yield %>
+    <% if notice.present? %>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const toastEl = document.querySelector(".toast");
+          const toast = new bootstrap.Toast(toastEl);
+          toast.show();
+        });
+      </script>
+    <% end %>
+    <button type="button" class="btn dropdown-item gap-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      Logout
+    </button>
+    <%= render "layouts/modal", modal_id: "exampleModal", modal_label_id: "exampleModalLabel", modal_title: "Logout", modal_content: "Are you sure you want to logout?", modal_path: destroy_user_session_path, modal_button: "Logout" %>
   </body>
 </html>
