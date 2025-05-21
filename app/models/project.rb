@@ -9,8 +9,8 @@ class Project < ApplicationRecord
                    and periods' }
   validates :information, length: { maximum: 300 }
   validate :deadline_is_valid
-  validates :type, presence: true
-  enum :type, {
+  validates :project_type, presence: true
+  enum :project_type, {
     lap: 1,
     single: 2,
     acceptance: 3

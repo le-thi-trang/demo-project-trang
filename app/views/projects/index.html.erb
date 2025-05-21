@@ -1,2 +1,48 @@
-<h1>Projects#index</h1>
-<p>Find me in app/views/projects/index.html.erb</p>
+<div class="d-flex flex-column gap-3">
+  <div>
+    <h1>Projects Management</h1>
+  </div>
+  <%= render "layouts/search_form", model_name: "Project", path: projects_path %>
+  <div>
+    <% if @projects.present? %>
+      <table class="table table-light">
+        <thead>
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Name</th>
+            <th scope="col">Deadline</th>
+            <th scope="col">Type</th>
+            <th scope="col">Status</th>
+            <th scope="col">Created at</th>
+            <th scope="col">Updated at</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @projects.each_with_index do |project, index| %>
+            <tr>
+              <th scope="row"><%= ((params[:page].presence || 1).to_i - 1) * 10 + index + 1 %></th>
+              <td><%= project.name %></td>
+              <td><%= project.deadline %></td>
+              <td><%= project.project_type %></td>
+              <td><%= project.status %></td>
+              <td><%= project.created_at.to_date %></td>
+              <td><%= project.updated_at.to_date %></td>
+              <td class="d-flex flex-row gap-2">
+                <%= button_to project_path(project), method: :delete, class: "btn btn-danger" do %>
+                  Delete
+                <%end%>
+                <%= button_to edit_project_path(project), method: :get, class: "btn btn-primary" do %>
+                  Edit
+                <%end%>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @projects %>
+    <% else%>
+      <p>No projects found!</p>
+    <% end%>
+  </div>
+</div>

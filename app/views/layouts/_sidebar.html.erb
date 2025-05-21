@@ -1,9 +1,13 @@
 <section class="sidebar mt-4 fs-5">
   <div class="d-flex align-items-start position-relative">
     <div class="nav flex-column nav-pills w-100 me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-      <%= link_to members_path, method: :get, class: "nav-link active text-start", data: { turbo_frame: "members" }, role: "tab", aria: { controls: "v-pills-home", selected: true } do %>
+      <%= link_to members_path, method: :get, class: "nav-link text-start #{'active' if current_page?(members_path)}", data: { turbo_frame: "members" }, role: "tab", aria: { controls: "v-pills-home", selected: true } do %>
         <i class="bi bi-people-fill"></i>
         Members
+      <% end %>
+      <%= link_to projects_path, method: :get, class: "nav-link text-start #{'active' if current_page?(projects_path)}", data: { turbo_frame: "projects" }, role: "tab", aria: { controls: "v-pills-profile", selected: false } do %>
+        <i class="bi bi-briefcase-fill"></i>
+        Projects
       <% end %>
       <button class="nav-link text-start" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</button>
       <button class="nav-link text-start" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</button>

@@ -3,7 +3,7 @@
     <h1>Members Management</h1>
   </div>
   <div class="d-flex justify-content-end align-items-center gap-3">
-    <%= render "layouts/search_form", model_name: "Member" %>
+    <%= render "layouts/search_form", model_name: "Member", path: members_path %>
     <div class="d-flex justify-content-end">
       <%= link_to new_member_path, class: "btn btn-primary" do %>
         <i class="fa-solid fa-plus"></i>
