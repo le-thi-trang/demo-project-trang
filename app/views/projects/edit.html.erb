@@ -1,2 +1,36 @@
-<h1>Projects#edit</h1>
-<p>Find me in app/views/projects/edit.html.erb</p>
+<div class="d-flex flex-column gap-3">
+  <div>
+    <h1>Edit project</h1>
+  </div>
+  <div>
+    <%= form_for(@project,html: { class: "form d-flex flex-column gap-3 w-50", method: :put }) do |f|  %>
+      <%= render "devise/shared/error_messages", resource: @project %>
+      <div class="field">
+        <%= f.label :name, class: "form-label", for: "project_name" %>
+        <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control", id: "project_name" %>
+      </div>
+      <div class="field">
+        <%= f.label :infomation, class: "form-label", for: "project_information" %>
+        <%= f.text_area :information, autofocus: true, autocomplete: "info", class: "form-control", id: "project_information" %>
+      </div>
+      <div class="field">
+        <%= f.label :deadline, class: "form-label", for: "project_deadline" %>
+        <%= f.datetime_local_field :deadline, value: f.object.deadline&.strftime("%Y-%m-%dT%H:%M"), autofocus: true, autocomplete: "deadline", class: "form-control", id: "project_deadline" %>
+      </div>
+      <div class="field">
+        <%= f.label :project_type, class: "form-label d-block", for: "project_project_type" %>
+        <%= f.select :project_type, options_for_select(Project.project_types.keys, selected: f.object.project_type), { include_blank: 'Select project type' }, class: "form-select", id: "project_project_type" %>
+      </div>
+      <div class="field">
+        <%= f.label :status, class: "form-label d-block", for: "project_status" %>
+        <%= f.select :status, options_for_select(Project.statuses.keys, selected: f.object.status), { include_blank: 'Select status' }, class: "form-select", id: "project_status" %>
+      </div>
+      <div class="actions my-3 d-flex justify-content-center ">
+        <%= f.submit "Save", class: "btn btn-primary w-100" %>
+      </div>
+    <% end %>
+    <small class="d-flex justify-content-between">
+      <%= link_to "Back", projects_path %><br />
+    </small>
+  </div>
+</div>

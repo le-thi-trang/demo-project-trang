@@ -28,6 +28,11 @@ class ProjectsController < ApplicationController
   end
 
   def update
+    if @project.update(project_params)
+      redirect_to projects_path, notice: 'Project was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   def destroy

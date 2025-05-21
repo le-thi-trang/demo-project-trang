@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Projects', type: :request do
-  let(:user) { create(:user, name: 'lu3myxrc') }
+  let(:user) { create(:user, name: 'ltieu.821') }
   let!(:project1) { create(:project, name: 'Alpha-Pro') }
   let!(:project2) { create(:project, name: 'Beta-Pro') }
   let!(:project3) { create(:project, name: 'Gam-Search') }
@@ -111,6 +111,42 @@ RSpec.describe 'Projects', type: :request do
         end.not_to change(Project, :count)
         expect(response.body).to include('error')
         expect(response).to render_template(:new)
+      end
+    end
+  end
+
+  describe 'GET /projects/:id/edit' do
+    context 'when signed in' do
+      before { sign_in user }
+
+      it 'renders the edit project form' do
+        get edit_project_path(project1)
+        expect(response).to be_successful
+        expect(response.body).to include('Edit project')
+      end
+    end
+  end
+
+  describe 'PUT /projects/:id' do
+    context 'when signed in' do
+      before { sign_in user }
+
+      it 'updates the project with valid attributes' do
+        put project_path(project1),
+            params: { project: { name: '7amz3lma', information: 'Updated info', deadline: '2023-12-31', project_type: 'lap',
+                                 status: 'done' } }
+        expect(response).to redirect_to(projects_path)
+        follow_redirect!
+        expect(response.body).to include('Project was successfully updated.')
+        project1.reload
+        expect(project1.name).to eq('7amz3lma')
+      end
+
+      it 'does not update the project with invalid attributes' do
+        put project_path(project1),
+            params: { project: { name: '', information: '', deadline: '', project_type: '', status: '' } }
+        expect(response.body).to include('error')
+        expect(response).to render_template(:edit)
       end
     end
   end
