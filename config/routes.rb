@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get '/assignments', to: 'assignments#index'
   get 'assignments/show'
   get 'assignments/new'
@@ -14,7 +15,6 @@ Rails.application.routes.draw do
   get 'projects/update'
   get 'projects/destroy'
   get '/members', to: 'members#index'
-  devise_for :users
   unauthenticated do
     root to: redirect('/users/sign_in'), as: :unauthenticated_root
   end
