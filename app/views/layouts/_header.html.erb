@@ -9,18 +9,19 @@
       <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Le Thi Trang</a>
       <ul class="dropdown-menu p-2">
         <li class="d-flex justify-content-between align-items-center">
-          <%= link_to "#", class: "dropdown-item gap-2" do %>
+          <%= link_to "#", class: "btn dropdown-item gap-2" do %>
             <i class="fa-regular fa-user"></i>
             Your Profile
           <% end %>
         </li>
         <li class="d-flex justify-content-between align-items-center">
-          <%= link_to "#", class: "dropdown-item gap-2" do %>
+          <button type="button" class="btn dropdown-item gap-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <i class="fa-solid fa-right-from-bracket"></i>
             Logout
-          <% end %>
+          </button>
         </li>
       </ul>
     </li>
   </nav>
 </header>
+<%= render "layouts/modal", modal_id: "exampleModal", modal_label_id: "exampleModalLabel", modal_title: "Logout", modal_content: "Are you sure you want to logout?", modal_path: destroy_user_session_path, modal_button: "Logout" %>
