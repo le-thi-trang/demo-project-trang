@@ -22,7 +22,9 @@
           <% @projects.each_with_index do |project, index| %>
             <tr>
               <th scope="row"><%= ((params[:page].presence || 1).to_i - 1) * 10 + index + 1 %></th>
-              <td><%= project.name %></td>
+              <td>
+                <%= link_to project.name, project_path(project) %>
+              </td>
               <td><%= project.deadline.strftime("%d-%m-%Y %H:%M") %></td>
               <td><%= project.project_type %></td>
               <td><%= project.status %></td>

@@ -3,7 +3,7 @@
     <h1><%=@member.name%></h1>
   </div>
   <div>
-    <%= form_for(@member,html: { class: "form d-flex flex-column gap-3 w-50", multipart: true, method: :put }) do |f|  %>
+    <%= form_for(@member,html: { class: "form d-flex flex-column gap-3 w-50", multipart: true, method: :get }) do |f|  %>
       <fieldset disabled class="d-flex flex-column gap-3">
         <div class="field">
           <%= f.label :phone_number, class: "form-label", for: "member_phone_number" %>
@@ -31,7 +31,7 @@
         </div>
       </fieldset>
     <% end %>
-    <small class="d-flex justify-content-between">
+    <small class="d-flex justify-content-between mt-3">
       <%= link_to "Back", members_path %><br />
     </small>
   </div>
