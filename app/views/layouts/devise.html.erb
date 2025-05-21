@@ -34,10 +34,5 @@
         });
       </script>
     <% end %>
-    <button type="button" class="btn dropdown-item gap-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      <i class="fa-solid fa-right-from-bracket"></i>
-      Logout
-    </button>
-    <%= render "layouts/modal", modal_id: "exampleModal", modal_label_id: "exampleModalLabel", modal_title: "Logout", modal_content: "Are you sure you want to logout?", modal_path: destroy_user_session_path, modal_button: "Logout" %>
   </body>
 </html>
