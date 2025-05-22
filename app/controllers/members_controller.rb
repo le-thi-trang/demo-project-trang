@@ -1,6 +1,6 @@
 class MembersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_member, only: %i[show edit update]
+  before_action :set_member, only: %i[show edit update destroy]
   def index
     @members = Member.order(created_at: :desc)
     q = "%#{params[:q].to_s.downcase}%"
@@ -36,6 +36,11 @@ class MembersController < ApplicationController
   end
 
   def destroy
+    if @member.destroy
+      redirect_to members_path, notice: 'Member was successfully destroyed.'
+    else
+      redirect_to members_path, alert: 'Member was not destroyed.'
+    end
   end
 
   private

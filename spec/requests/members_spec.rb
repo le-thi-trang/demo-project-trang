@@ -179,4 +179,44 @@ RSpec.describe 'Members', type: :request do
       end
     end
   end
+
+  describe 'DELETE /members/:id' do
+    context 'when not signed in' do
+      it 'redirects to sign in page' do
+        delete member_path(member1)
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context 'when signed in' do
+      before do
+        sign_in user
+      end
+
+      it 'deletes the member' do
+        expect do
+          delete member_path(member1)
+        end.to change(Member, :count).by(-1)
+        expect(response).to redirect_to(members_path)
+        follow_redirect!
+        expect(response.body).to include('Member was successfully destroyed.')
+      end
+    end
+
+    context 'does not delete the member and shows alert' do
+      before do
+        sign_in user
+        allow_any_instance_of(Member).to receive(:destroy).and_return(false)
+      end
+
+      it 'does not delete the member' do
+        expect do
+          delete member_path(member1)
+        end.not_to change(Member, :count)
+        expect(response).to redirect_to(members_path)
+        follow_redirect!
+        expect(response.body).to include('Member was not destroyed.')
+      end
+    end
+  end
 end
