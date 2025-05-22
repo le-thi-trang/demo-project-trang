@@ -1,4 +1,5 @@
 class AssignmentsController < ApplicationController
+  before_action :authenticate_user!
   def index
   end
 
@@ -10,10 +11,11 @@ class AssignmentsController < ApplicationController
 
   def create
     @assignment = Assignment.new(assignment_params)
+    project_id = @assignment.project_id.to_i.presence || params[:assignment][:project_id]
     if @assignment.save
-      redirect_to project_path(@assignment.project_id), notice: 'Assignment was successfully created.'
+      redirect_to project_path(project_id), notice: 'Assignment was successfully created.'
     else
-      redirect_to project_path(@assignment.project_id), alert: @assignment.errors.full_messages.to_sentence
+      redirect_to project_path(project_id), alert: @assignment.errors.full_messages.to_sentence
     end
   end
 
