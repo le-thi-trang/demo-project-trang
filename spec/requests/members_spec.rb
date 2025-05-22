@@ -110,4 +110,25 @@ RSpec.describe 'Members', type: :request do
       end
     end
   end
+
+  describe 'GET /members/:id' do
+    context 'when not signed in' do
+      it 'redirects to sign in page' do
+        get member_path(member1)
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context 'when signed in' do
+      before do
+        sign_in user
+      end
+
+      it 'shows the member details' do
+        get member_path(member1)
+        expect(response).to be_successful
+        expect(response.body).to include(member1.name)
+      end
+    end
+  end
 end

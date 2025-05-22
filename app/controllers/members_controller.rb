@@ -8,6 +8,8 @@ class MembersController < ApplicationController
   end
 
   def show
+    @member = Member.find(params[:id])
+    @form_method = :get
   end
 
   def new
