@@ -131,4 +131,52 @@ RSpec.describe 'Members', type: :request do
       end
     end
   end
+
+  describe 'GET /members/:id/edit' do
+    context 'when not signed in' do
+      it 'redirects to sign in page' do
+        get edit_member_path(member1)
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context 'when signed in' do
+      before do
+        sign_in user
+      end
+
+      it 'renders the edit member form' do
+        get edit_member_path(member1)
+        expect(response).to be_successful
+        expect(response.body).to include('Update member')
+      end
+    end
+  end
+
+  describe 'PATCH /members/:id' do
+    context 'when signed in' do
+      before do
+        sign_in user
+      end
+
+      it 'updates the member' do
+        patch member_path(member1), params: { member: { name: 'Ali', phone_number: '123456789', date_of_birth: '1990-01-01', position: 'pm',
+                                                        information: 'Lorem ipsum' } }
+
+        expect(response).to redirect_to(members_path)
+        follow_redirect!
+        expect(response.body).to include('Member was successfully updated.')
+        expect(member1.reload.name).to eq('Ali')
+      end
+
+      it 'does not update the member with invalid attributes' do
+        patch member_path(member1), params: { member: { name: '', phone_number: '1234555555', date_of_birth: '1990-01-01', position: 'pm',
+                                                        information: 'Lorem ipsum' } }
+        expect(response.body).to include('Update member')
+        expect(response.body).to include('error')
+        expect(response).to render_template(:edit)
+        expect(member1.reload.name).not_to eq('')
+      end
+    end
+  end
 end

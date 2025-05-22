@@ -1,5 +1,6 @@
 class MembersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_member, only: %i[show edit update]
   def index
     @members = Member.order(created_at: :desc)
     q = "%#{params[:q].to_s.downcase}%"
@@ -8,7 +9,6 @@ class MembersController < ApplicationController
   end
 
   def show
-    @member = Member.find(params[:id])
   end
 
   def new
@@ -28,12 +28,21 @@ class MembersController < ApplicationController
   end
 
   def update
+    if @member.update(member_params)
+      redirect_to members_path, notice: 'Member was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   def destroy
   end
 
   private
+
+  def set_member
+    @member = Member.find(params[:id])
+  end
 
   def member_params
     params.require(:member).permit(:name, :phone_number, :date_of_birth, :position, :information, :avatar)
