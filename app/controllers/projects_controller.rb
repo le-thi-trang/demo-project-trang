@@ -9,6 +9,8 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @assignment = Assignment.new
+    @assignments = @project.assignments.order(created_at: :desc).includes(:member).page(params[:page]).per(5)
   end
 
   def new

@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   end
   resources :members
   resources :projects do
-    resources :assignments, only: %i[create update destroy]
+    resources :assignments, only: %i[create edit update destroy]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
