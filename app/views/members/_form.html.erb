@@ -1,41 +1,41 @@
-<%= form_for(@member,html: { class: "form d-flex flex-column gap-3 w-50", multipart: true, method: @form_method }) do |f|  %>
+<%= form_with model: @member, local: true, html: { class: "form d-flex flex-column gap-3 w-50", multipart: true } do |f|  %>
   <%= render "devise/shared/error_messages", resource: @member %>
   <% if readonly %>
     <fieldset disabled class="d-flex flex-column gap-3">
-  <% end %>
-        <div class="field">
-        <%= f.label :name, class: "form-label", for: "member_name" %>
-        <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control", id: "member_name" %>
-        </div>
-        <div class="field">
-        <%= f.label :phone_number, class: "form-label", for: "member_phone_number" %>
-        <%= f.text_field :phone_number, autofocus: true, autocomplete: "tel", class: "form-control", id: "member_phone_number" %>
-        </div>
-        <div class="field">
-        <%= f.label :position, class: "form-label d-block", for: "member_position" %>
-        <%= f.select :position, options_for_select(Member.positions.keys, selected: f.object.position), { include_blank: 'Select position' }, class: "form-select", id: "member_position" %>
-        </div>
-        <div class="field">
-        <%= f.label :date_of_birth, class: "form-label d-block", for: "member_date_of_birth" %>
-        <%= f.date_field :date_of_birth,autocomplete: "bday", id: "member_date_of_birth", class: "form-control" %>
-        </div>
-        <div class="field">
-        <%= f.label :infomation, class: "form-label", for: "member_information" %>
-        <%= f.text_area :information, autofocus: true, autocomplete: "info", class: "form-control", id: "member_information" %>
-        </div>
-        <div class="field">
-            <%= f.label :avatar, class: "form-label", for: "member_avatar" %>
-            <% if readonly %>
-                <% if @member.avatar.attached? %>
-                    <%= image_tag @member.avatar.variant(resize_to_limit: [150, 150]) %>
-                <% else %>
-                    <p>No avatar uploaded</p>
-                <% end %>
-            <% else %>
-                <%= f.file_field :avatar, autofocus: true, autocomplete: "avatar", class: "form-control", id: "member_avatar" %>
-            <% end %>
-        </div>
-  <% if readonly %>
+    <% end %>
+    <div class="field">
+      <%= f.label :name, class: "form-label", for: "member_name" %>
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control", id: "member_name" %>
+    </div>
+    <div class="field">
+      <%= f.label :phone_number, class: "form-label", for: "member_phone_number" %>
+      <%= f.text_field :phone_number, autofocus: true, autocomplete: "tel", class: "form-control", id: "member_phone_number" %>
+    </div>
+    <div class="field">
+      <%= f.label :position, class: "form-label d-block", for: "member_position" %>
+      <%= f.select :position, options_for_select(Member.positions.keys, selected: f.object.position), { include_blank: 'Select position' }, class: "form-select", id: "member_position" %>
+    </div>
+    <div class="field">
+      <%= f.label :date_of_birth, class: "form-label d-block", for: "member_date_of_birth" %>
+      <%= f.date_field :date_of_birth,autocomplete: "bday", id: "member_date_of_birth", class: "form-control" %>
+    </div>
+    <div class="field">
+      <%= f.label :infomation, class: "form-label", for: "member_information" %>
+      <%= f.text_area :information, autofocus: true, autocomplete: "info", class: "form-control", id: "member_information" %>
+    </div>
+    <div class="field">
+      <%= f.label :avatar, class: "form-label", for: "member_avatar" %>
+      <% if readonly %>
+        <% if @member.avatar.attached? %>
+          <%= image_tag @member.avatar.variant(resize_to_limit: [150, 150]) %>
+        <% else %>
+          <p>No avatar uploaded</p>
+        <% end %>
+      <% else %>
+        <%= f.file_field :avatar, autofocus: true, autocomplete: "avatar", class: "form-control", id: "member_avatar" %>
+      <% end %>
+    </div>
+    <% if readonly %>
     </fieldset>
   <% end %>
   <% unless readonly %>

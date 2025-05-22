@@ -9,12 +9,10 @@ class MembersController < ApplicationController
 
   def show
     @member = Member.find(params[:id])
-    @form_method = :get
   end
 
   def new
     @member = Member.new
-    @form_method = :post
   end
 
   def create
