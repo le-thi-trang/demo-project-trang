@@ -11,9 +11,17 @@ class MembersController < ApplicationController
   end
 
   def new
+    @member = Member.new
+    @form_method = :post
   end
 
   def create
+    @member = Member.new(member_params)
+    if @member.save
+      redirect_to members_path, notice: 'Member was successfully created.'
+    else
+      render :new
+    end
   end
 
   def edit
@@ -23,5 +31,11 @@ class MembersController < ApplicationController
   end
 
   def destroy
+  end
+
+  private
+
+  def member_params
+    params.require(:member).permit(:name, :phone_number, :date_of_birth, :position, :information, :avatar)
   end
 end

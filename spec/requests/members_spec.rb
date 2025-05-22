@@ -39,7 +39,9 @@ RSpec.describe 'Members', type: :request do
       context 'pagination' do
         before do
           Member.delete_all
-          create_list(:member, 12)
+          12.times do |i|
+            create(:member, name: "Member-#{i + 1}")
+          end
         end
 
         it 'shows 10 members on page 1' do
@@ -55,6 +57,56 @@ RSpec.describe 'Members', type: :request do
           rows = html.css('table tbody tr')
           expect(rows.size).to eq(2)
         end
+      end
+    end
+  end
+
+  describe 'GET /members/new' do
+    context 'when not signed in' do
+      it 'redirects to sign in page' do
+        get new_member_path
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context 'when signed in' do
+      before do
+        sign_in user
+      end
+
+      it 'renders the new member form' do
+        get new_member_path
+        expect(response).to be_successful
+        expect(response.body).to include('Create member')
+      end
+    end
+  end
+
+  describe 'POST /members' do
+    context 'when signed in' do
+      before do
+        sign_in user
+      end
+
+      it 'creates a new member with valid attributes' do
+        expect do
+          post members_path,
+               params: { member: { name: 'Charlie', phone_number: '5555555555', date_of_birth: '1990-01-01', position: 'pm',
+                                   information: 'Lorem ipsum' } }
+        end.to change(Member, :count).by(1)
+        expect(response).to redirect_to(members_path)
+        follow_redirect!
+        expect(response.body).to include('Member was successfully created.')
+      end
+
+      it 'does not create a member with invalid attributes' do
+        expect do
+          post members_path, params: { member: { name: '', phone_number: '1234555555', date_of_birth: '1990-01-01', position: 'pm',
+                                                 information: 'Lorem ipsum' } }
+        end.not_to change(Member, :count)
+        expect(response.body).to include('Create member')
+        expect(response.body).to include('error')
+        expect(response).to render_template(:new)
       end
     end
   end
