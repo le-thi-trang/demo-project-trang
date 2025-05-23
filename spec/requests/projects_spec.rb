@@ -77,4 +77,41 @@ RSpec.describe 'Projects', type: :request do
       end
     end
   end
+
+  describe 'GET /projects/new' do
+    context 'when signed in' do
+      before { sign_in user }
+
+      it 'renders the new project form' do
+        get new_project_path
+        expect(response).to be_successful
+      end
+    end
+  end
+
+  describe 'POST /projects' do
+    context 'when signed in' do
+      before { sign_in user }
+
+      it 'creates a new project with valid attributes' do
+        expect do
+          post projects_path,
+               params: { project: { name: '9njiu92j', information: 'Project info', deadline: '2023-12-31', project_type: 'lap',
+                                    status: 'doing' } }
+        end.to change(Project, :count).by(1)
+        expect(response).to redirect_to(projects_path)
+        follow_redirect!
+        expect(response.body).to include('Project was successfully created.')
+      end
+
+      it 'does not create a project with invalid attributes' do
+        expect do
+          post projects_path,
+               params: { project: { name: '', information: '', deadline: '', project_type: '', status: '' } }
+        end.not_to change(Project, :count)
+        expect(response.body).to include('error')
+        expect(response).to render_template(:new)
+      end
+    end
+  end
 end

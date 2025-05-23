@@ -4,6 +4,10 @@
     <fieldset disabled class="d-flex flex-column gap-3">
   <% end %>
         <div class="field">
+          <%= f.label :name, class: "form-label", for: "project_name" %>
+          <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control", id: "project_name" %>
+        </div>
+        <div class="field">
           <%= f.label :information, class: "form-label", for: "project_information" %>
           <%= f.text_area :information, autofocus: true, autocomplete: "info", class: "form-control", id: "project_information" %>
         </div>
