@@ -94,4 +94,30 @@ RSpec.describe 'Projects', type: :request do
       end
     end
   end
+
+  describe 'DELETE /projects/:project_id/assignments/:id' do
+    context 'when signed in' do
+      before do
+        sign_in user, scope: :user
+        assignment
+      end
+
+      it 'deletes the assignment and redirects to the project page' do
+        expect do
+          delete project_assignment_path(project, assignment)
+        end.to change(Assignment, :count).by(-1)
+        expect(response).to redirect_to(project_path(project))
+        follow_redirect!
+        expect(response.body).to include('Assignment was successfully destroyed.')
+      end
+    end
+
+    context 'when not signed in' do
+      it 'does not delete the assignment and redirects to the login page' do
+        delete project_assignment_path(project, assignment)
+        expect(response).to redirect_to(new_user_session_path)
+        expect(flash[:alert]).to be_present
+      end
+    end
+  end
 end

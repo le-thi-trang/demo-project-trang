@@ -22,6 +22,8 @@ class AssignmentsController < ApplicationController
   end
 
   def destroy
+    @assignment.destroy
+    redirect_to project_path(@assignment.project), notice: 'Assignment was successfully destroyed.'
   end
 
   private
