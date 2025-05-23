@@ -57,4 +57,41 @@ RSpec.describe 'Projects', type: :request do
       end
     end
   end
+
+  describe 'PATCH /projects/:project_id/assignments/:id' do
+    let(:valid_update_parrams) { { assignment: { role: 'pl' } } }
+    let(:invalid_update_params) { { assignment: { role: '' } } }
+
+    context 'when signed in' do
+      before do
+        sign_in user, scope: :user
+        assignment
+      end
+
+      it 'updates the assignment and redirects to the project page' do
+        patch project_assignment_path(project, assignment), params: valid_update_parrams
+        expect(assignment.reload.role).to eq('pl')
+        expect(response).to redirect_to(project_path(project))
+      end
+
+      it 'does not update the assignment with invalid params' do
+        patch project_assignment_path(project, assignment), params: invalid_update_params
+        expect(assignment.reload.role).not_to eq('')
+        expect(response).to redirect_to(project_path(project))
+        follow_redirect!
+        expect(flash[:alert]).to be_present
+      end
+    end
+
+    context 'when not signed in' do
+      it 'does not update the assignment and redirects to the login page' do
+        patch project_assignment_path(project, assignment), params: valid_update_parrams
+        expect(response).to redirect_to(new_user_session_path)
+        expect(flash[:alert]).to be_present
+        follow_redirect!
+        expect(response.body).to include('You need to sign in or sign up before continuing.')
+        expect(flash[:alert]).to be_present
+      end
+    end
+  end
 end

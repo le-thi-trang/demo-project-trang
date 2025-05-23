@@ -14,12 +14,21 @@ class AssignmentsController < ApplicationController
   end
 
   def update
+    if @assignment.update(assignment_params)
+      redirect_to project_path(@assignment.project), notice: 'Assignment was successfully updated.'
+    else
+      redirect_to project_path(@assignment.project), alert: @assignment.errors.full_messages.to_sentence
+    end
   end
 
   def destroy
   end
 
   private
+
+  def set_assignment
+    @assignment = Assignment.find(params[:id])
+  end
 
   def assignment_params
     params.require(:assignment).permit(:project_id, :member_id, :role)
