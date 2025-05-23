@@ -47,7 +47,7 @@
                 <%end%>
               </td>
             </tr>
-            <%= render "layouts/modal", project: project, modal_id: "deleteProjectModal#{project.id}", modal_label_id: "deleteProjectModalLabel#{project.id}",  modal_title: "Delete #{project.name}", modal_content: "Are you sure you want to delete #{project.name}?", modal_path: project_path(project), modal_button: "Delete" %>
+            <%= render "layouts/modal", project: project, modal_id: "deleteProjectModal#{project.id}", modal_label_id: "deleteProjectModalLabel#{project.id}",  modal_title: "Delete #{project.name}", modal_content: "Are you sure you want to delete #{project.name}?", modal_path: project_path(project), modal_button: "Delete", method: :delete, css_class: "btn btn-danger", hide_footer: false  %>
           <% end %>
         </tbody>
       </table>

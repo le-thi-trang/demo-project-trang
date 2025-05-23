@@ -39,7 +39,7 @@ class MembersController < ApplicationController
     if @member.destroy
       redirect_to members_path, notice: 'Member was successfully destroyed.'
     else
-      redirect_to members_path, alert: 'Member was not destroyed.'
+      redirect_to members_path, alert: @member.errors.full_messages.to_sentence
     end
   end
 
