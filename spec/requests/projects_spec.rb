@@ -150,4 +150,19 @@ RSpec.describe 'Projects', type: :request do
       end
     end
   end
+
+  describe 'DELETE /projects/:id' do
+    context 'when signed in' do
+      before { sign_in user }
+
+      it 'deletes the project' do
+        expect do
+          delete project_path(project1)
+        end.to change(Project, :count).by(-1)
+        expect(response).to redirect_to(projects_path)
+        follow_redirect!
+        expect(response.body).to include('Project was successfully destroyed.')
+      end
+    end
+  end
 end

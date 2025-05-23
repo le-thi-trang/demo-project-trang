@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_project, only: %i[show edit update]
+  before_action :set_project, only: %i[show edit update destroy]
   def index
     @projects = Project.order(created_at: :desc)
     q = "%#{params[:q].to_s.downcase}%"
@@ -36,6 +36,8 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
+    @project.destroy
+    redirect_to projects_path, notice: 'Project was successfully destroyed.'
   end
 
   private
