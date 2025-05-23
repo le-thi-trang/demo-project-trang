@@ -1,0 +1,13 @@
+<% disabled ||= false %>
+<%= form_with model: assignment, url: modal_path, local: true, class: "form d-flex flex-column gap-3" do |f| %>
+  <%= f.hidden_field :project_id, value: @project.id %>
+  <div class="mb-3">
+    <%= f.label :member_id, "Select Member", class: "form-label" %>
+    <%= f.collection_select :member_id, Member.all, :id, :name, { prompt: "Choose member" }, class: "form-select", disabled: disabled %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :role, "Role", class: "form-label" %>
+    <%= f.select :role, options_for_select(Assignment.roles.keys.map { |r| [r.upcase, r] }, selected: f.object.role), {include_blank: 'Select position'}, class: "form-select" %>
+  </div>
+  <%= f.submit "#{button_name}", class: "btn btn-success" %>
+<% end %>

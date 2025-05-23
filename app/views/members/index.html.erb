@@ -51,7 +51,7 @@
                 </div>
               </td>
             </tr>
-            <%= render "layouts/modal", member: member, modal_id: "deleteMemberModal#{member.id}", modal_label_id: "deleteMemberModalLabel#{member.id}",  modal_title: "Delete #{member.name}", modal_content: "Are you sure you want to delete #{member.name}?", modal_path: member_path(member), modal_button: "Delete" %>
+            <%= render "layouts/modal", member: member, modal_id: "deleteMemberModal#{member.id}", modal_label_id: "deleteMemberModalLabel#{member.id}",  modal_title: "Delete #{member.name}", modal_content: "Are you sure you want to delete #{member.name}?", modal_path: member_path(member), modal_button: "Delete", method: :delete, css_class: "btn btn-danger", hide_footer: false  %>
           <% end %>
         <% else %>
           <p>No members found!</p>

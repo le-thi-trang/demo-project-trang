@@ -3,14 +3,21 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
   def index
     @projects = Project.order(created_at: :desc)
-    q = "%#{params[:q].to_s.downcase}%"
-    @projects = @projects.where('LOWER(name) LIKE ?', q) if params[:q].present?
+    if params[:q].present?
+      q = "%#{params[:q].to_s.downcase}%"
+      @projects = @projects.where('LOWER(name) LIKE ?', q)
+    end
     @projects = @projects.page(params[:page]).per(10)
   end
 
   def show
-    @assignment = Assignment.new
     @assignments = @project.assignments.order(created_at: :desc).includes(:member).page(params[:page]).per(5)
+
+    @assignment = if params[:assignment_id].present?
+                    Assignment.find_by(id: params[:assignment_id])
+                  else
+                    Assignment.new
+                  end
   end
 
   def new

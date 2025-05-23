@@ -75,6 +75,39 @@ RSpec.describe 'Projects', type: :request do
         expect(response).to be_successful
         expect(response.body).to include(project1.name)
       end
+
+      it 'shows the project with assignments' do
+        get project_path(project1)
+        expect(response).to be_successful
+        expect(response.body).to include(project1.name)
+        expect(response.body).to include('Assign New')
+      end
+
+      it 'assigns new assignment if assignment_id param not present' do
+        get project_path(project1)
+        expect(response).to be_successful
+        expect(response.body).to include('Assign New')
+      end
+
+      it 'shows the project with specific assignment if assignment_id param present' do
+        assignment = create(:assignment, project: project1)
+        get project_path(project1, assignment_id: assignment.id)
+        expect(response).to be_successful
+        expect(response.body).to include(assignment.role)
+      end
+
+      it 'shows the project with no assignments' do
+        get project_path(project2)
+        expect(response).to be_successful
+        expect(response.body).to include(project2.name)
+      end
+
+      it 'assigns new assignment if assignment_id param present' do
+        assignment = create(:assignment, project: project1)
+        get project_path(project1, assignment_id: assignment.id)
+        expect(response).to be_successful
+        expect(response.body).to include('Assign New')
+      end
     end
   end
 

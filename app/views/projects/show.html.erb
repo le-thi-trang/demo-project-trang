@@ -24,7 +24,7 @@
       </fieldset>
     <% end %>
     <div class="card mt-5 w-50">
-      <%= render "assignments/new_form", project: @project %>
+      <%= render "projects/new_assignment", project: @project, feature_name: "➕ Assign New", feature_title: "Assign a New Member", button_name: "Assign" %>
       <div class="card-body">
         <% if @project.assignments.any? %>
           <table class="table table-hover align-middle">
@@ -42,15 +42,26 @@
                   <td><span class="badge bg-secondary text-uppercase"><%= assignment.role %></span></td>
                   <td class="text-end">
                     <div class="d-flex flex-row justify-content-end">
-                      <%= link_to project_assignment_path(assignment.project_id, assignment), method: :patch, class: "btn btn-warning btn-sm me-2" do %>
+                      <button type="button" class="btn btn-warning btn-sm me-2 btn-edit-assignment" data-bs-toggle="modal" data-bs-target="#editAssignmentModal<%= assignment.id %>">
                         <i class="bi bi-pencil-square"></i> Edit
-                      <% end %>
+                      </button>
                       <%= button_to project_assignment_path(assignment.project_id, assignment), method: :delete, data: { confirm: "Remove this member?" }, class: "btn btn-danger btn-sm" do %>
                         <i class="bi bi-trash3"></i> Remove
                       <% end %>
                     </div>
                   </td>
                 </tr>
+                <%= render "layouts/modal", 
+                  modal_id: "editAssignmentModal#{assignment.id}", 
+                  modal_label_id: "editAssignmentModalLabel#{assignment.id}", 
+                  modal_title: "Update role of #{assignment.member.name}", 
+                  modal_content: render("projects/modal_body", modal_path: project_assignment_path(@project, assignment), project: @project, button_name: "Update", assignment: assignment, disabled: true),
+                  modal_path: project_assignment_path(assignment), 
+                  modal_button: "Save", 
+                  method: :patch, 
+                  css_class: "btn btn-primary",
+                  hide_footer: true
+                %>
               <% end %>
             </tbody>
           </table>
@@ -66,4 +77,3 @@
       <%= link_to "Back", projects_path %><br />
     </small>
   </div>
-</div>
