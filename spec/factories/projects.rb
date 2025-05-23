@@ -3,7 +3,7 @@ FactoryBot.define do
     name { Faker::Alphanumeric.unique.alphanumeric(number: 8) }
     information { Faker::Lorem.paragraph }
     deadline { Faker::Date.backward(days: 30) }
-    type { Project.types.keys.sample }
+    project_type { Project.project_types.keys.sample }
     status { Project.statuses.keys.sample }
   end
 end

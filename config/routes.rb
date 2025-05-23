@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
 
   resources :members
+  resources :projects
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)

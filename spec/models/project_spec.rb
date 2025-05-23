@@ -18,12 +18,12 @@ RSpec.describe Project, type: :model do
     end
 
     it { should validate_length_of(:information).is_at_most(300) }
-    it { should validate_presence_of(:type) }
+    it { should validate_presence_of(:project_type) }
     it { should validate_presence_of(:status) }
   end
 
   describe 'enums' do
-    it { should define_enum_for(:type).with_values(lap: 1, single: 2, acceptance: 3) }
+    it { should define_enum_for(:project_type).with_values(lap: 1, single: 2, acceptance: 3) }
     it { should define_enum_for(:status).with_values(planned: 1, onhold: 2, doing: 3, done: 4, canceled: 5) }
   end
 

@@ -1,0 +1,59 @@
+<div class="d-flex flex-column gap-3">
+  <div>
+    <h1>Projects Management</h1>
+  </div>
+  <div class="d-flex justify-content-end align-items-center gap-3">
+    <%= render "layouts/search_form", model_name: "Project", path: projects_path %>
+    <div class="d-flex justify-content-end">
+      <%= link_to new_project_path, class: "btn btn-primary" do %>
+        <i class="fa-solid fa-plus"></i>
+        New Project
+      <% end %>
+    </div>
+  </div>
+  <div>
+    <% if @projects.present? %>
+      <table class="table table-light">
+        <thead>
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Name</th>
+            <th scope="col">Deadline</th>
+            <th scope="col">Type</th>
+            <th scope="col">Status</th>
+            <th scope="col">Created at</th>
+            <th scope="col">Updated at</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @projects.each_with_index do |project, index| %>
+            <tr>
+              <th scope="row"><%= ((params[:page].presence || 1).to_i - 1) * 10 + index + 1 %></th>
+              <td>
+                <%= link_to project.name, project_path(project) %>
+              </td>
+              <td><%= project.deadline.strftime("%d-%m-%Y %H:%M") %></td>
+              <td><%= project.project_type %></td>
+              <td><%= project.status %></td>
+              <td><%= project.created_at.to_date %></td>
+              <td><%= project.updated_at.to_date %></td>
+              <td class="d-flex flex-row gap-2">
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProjectModal<%= project.id %>">
+                  Delete
+                </button>
+                <%= button_to edit_project_path(project), method: :get, class: "btn btn-primary" do %>
+                  Edit
+                <%end%>
+              </td>
+            </tr>
+            <%= render "layouts/modal", project: project, modal_id: "deleteProjectModal#{project.id}", modal_label_id: "deleteProjectModalLabel#{project.id}",  modal_title: "Delete #{project.name}", modal_content: "Are you sure you want to delete #{project.name}?", modal_path: project_path(project), modal_button: "Delete" %>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @projects %>
+    <% else%>
+      <p>No projects found!</p>
+    <% end%>
+  </div>
+</div>
