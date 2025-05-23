@@ -1,0 +1,31 @@
+<%= form_with model: @project, local: true, html: { class: "form d-flex flex-column gap-3 w-50" } do |f|  %>
+  <%= render "devise/shared/error_messages", resource: @project %>
+  <% if readonly %>
+    <fieldset disabled class="d-flex flex-column gap-3">
+  <% end %>
+        <div class="field">
+          <%= f.label :information, class: "form-label", for: "project_information" %>
+          <%= f.text_area :information, autofocus: true, autocomplete: "info", class: "form-control", id: "project_information" %>
+        </div>
+        <div class="field">
+          <%= f.label :deadline, class: "form-label", for: "project_deadline" %>
+          <%= f.datetime_local_field :deadline, value: f.object.deadline&.strftime("%Y-%m-%dT%H:%M"), autofocus: true, autocomplete: "deadline", class: "form-control", id: "project_deadline" %>
+        </div>
+        <div class="field">
+          <%= f.label :project_type, class: "form-label d-block", for: "project_project_type" %>
+          <%= f.select :project_type, options_for_select(Project.project_types.keys, selected: f.object.project_type), { include_blank: 'Select project type' }, class: "form-select", id: "project_project_type" %>
+        </div>
+        <div class="field">
+          <%= f.label :status, class: "form-label d-block", for: "project_status" %>
+          <%= f.select :status, options_for_select(Project.statuses.keys, selected: f.object.status), { include_blank: 'Select status' }, class: "form-select", id: "project_status" %>
+        </div>
+  <% if readonly %>
+    </fieldset>
+  <% end %>
+  <% unless readonly %>
+    <div class="actions my-3 d-flex justify-content-center ">
+      <%= f.submit "#{feature_name}", class: "btn btn-primary w-100" %>
+    </div>
+  <% end %>
+<% end %>
+<%= render "layouts/link", name: "Back", path: projects_path %>

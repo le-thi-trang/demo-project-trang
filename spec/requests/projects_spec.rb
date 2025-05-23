@@ -58,4 +58,23 @@ RSpec.describe 'Projects', type: :request do
       end
     end
   end
+
+  describe 'GET /projects/:id' do
+    context 'when not signed in' do
+      it 'redirects to sign in page' do
+        get project_path(project1)
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context 'when signed in' do
+      before { sign_in user }
+
+      it 'shows the project' do
+        get project_path(project1)
+        expect(response).to be_successful
+        expect(response.body).to include(project1.name)
+      end
+    end
+  end
 end

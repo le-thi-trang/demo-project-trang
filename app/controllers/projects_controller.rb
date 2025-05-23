@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_project, only: %i[show]
   def index
     @projects = Project.order(created_at: :desc)
     q = "%#{params[:q].to_s.downcase}%"
@@ -23,5 +24,11 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
+  end
+
+  private
+
+  def set_project
+    @project = Project.find(params[:id])
   end
 end
