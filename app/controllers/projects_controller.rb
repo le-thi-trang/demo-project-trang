@@ -3,8 +3,10 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
   def index
     @projects = Project.order(created_at: :desc)
-    q = "%#{params[:q].to_s.downcase}%"
-    @projects = @projects.where('LOWER(name) LIKE ?', q) if params[:q].present?
+    if params[:q].present?
+      q = "%#{params[:q].to_s.downcase}%"
+      @projects = @projects.where('LOWER(name) LIKE ?', q)
+    end
     @projects = @projects.page(params[:page]).per(10)
   end
 
