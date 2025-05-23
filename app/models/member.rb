@@ -3,7 +3,7 @@
 # Member model represents a user who participates in projects.
 # Each member can be assigned to multiple projects with specific roles.
 class Member < ApplicationRecord
-  has_many :assignments
+  has_many :assignments, dependent: :restrict_with_error
   has_many :projects, through: :assignments
   has_one_attached :avatar
 

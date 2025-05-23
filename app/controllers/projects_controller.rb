@@ -9,6 +9,13 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @assignments = @project.assignments.order(created_at: :desc).includes(:member).page(params[:page]).per(5)
+
+    @assignment = if params[:assignment_id].present?
+                    Assignment.find_by(id: params[:assignment_id])
+                  else
+                    Assignment.new
+                  end
   end
 
   def new
@@ -36,6 +43,7 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
+    @project.assignments.destroy_all
     @project.destroy
     redirect_to projects_path, notice: 'Project was successfully destroyed.'
   end

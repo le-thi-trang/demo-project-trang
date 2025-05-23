@@ -2,7 +2,7 @@
 
 # Project model represents a project that involves multiple members.
 class Project < ApplicationRecord
-  has_many :assignments
+  has_many :assignments, dependent: :destroy
   has_many :members, through: :assignments
   validates :name, presence: true, length: { maximum: 10 },
                    format: { with: /\A[a-zA-Z0-9.-]+\z/, message: 'can only contain alphanumeric characters, hyphens,

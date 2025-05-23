@@ -155,10 +155,16 @@ RSpec.describe 'Projects', type: :request do
     context 'when signed in' do
       before { sign_in user }
 
-      it 'deletes the project' do
+      let!(:project_with_assignments) { create(:project) }
+      let!(:assignment1) { create(:assignment, project: project_with_assignments) }
+      let!(:assignment2) { create(:assignment, project: project_with_assignments) }
+
+      it 'deletes the project and its assignments' do
+        expect(Assignment.where(project_id: project_with_assignments.id).count).to eq(2)
         expect do
-          delete project_path(project1)
+          delete project_path(project_with_assignments)
         end.to change(Project, :count).by(-1)
+           .and change(Assignment, :count).by(-2)
         expect(response).to redirect_to(projects_path)
         follow_redirect!
         expect(response.body).to include('Project was successfully destroyed.')

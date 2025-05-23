@@ -54,3 +54,17 @@ end
 
   project.save!
 end
+
+project_ids = Project.pluck(:id)
+member_ids = Member.pluck(:id)
+
+member_ids.each do |member_id|
+  project_ids.sample(rand(1..3)).each do |project_id|
+    assignment = Assignment.find_or_initialize_by(
+      project_id: project_id,
+      member_id: member_id
+    )
+    assignment.role = Assignment.roles.keys.sample
+    assignment.save!
+  end
+end

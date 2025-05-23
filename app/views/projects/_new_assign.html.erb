@@ -1,0 +1,12 @@
+<div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+  <h5 class="mb-0">👥 Members in this Project</h5>
+  <button class="btn btn-light btn-sm" data-bs-toggle="collapse" data-bs-target="#assignForm">
+    <%= feature_name %>
+  </button>
+  <div class="collapse mt-3" id="assignForm">
+    <div class="card card-body border border-primary">
+      <h5 style="color: black"><%= feature_title %></h5>
+      <%= render "projects/modal_body", modal_path: project_assignments_path(@project), project: @project, button_name: "Assign", assignment: @assignment %>
+    </div>
+  </div>
+</div>

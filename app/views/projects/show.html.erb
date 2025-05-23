@@ -4,5 +4,7 @@
   </div>
   <div>
     <%= render "form", readonly: true %>
+    <%= render "assignment", project: @project %>
+    <%= render "layouts/link", name: "Back", path: projects_path %>
   </div>
 </div>

@@ -215,7 +215,7 @@ RSpec.describe 'Members', type: :request do
         end.not_to change(Member, :count)
         expect(response).to redirect_to(members_path)
         follow_redirect!
-        expect(response.body).to include('Member was not destroyed.')
+        expect(flash[:alert]).to eq(member1.errors.full_messages.to_sentence)
       end
     end
   end
