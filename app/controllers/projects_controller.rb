@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_project, only: %i[show edit]
+  before_action :set_project, only: %i[show edit update]
   def index
     @projects = Project.order(created_at: :desc)
     q = "%#{params[:q].to_s.downcase}%"
@@ -28,6 +28,11 @@ class ProjectsController < ApplicationController
   end
 
   def update
+    if @project.update(project_params)
+      redirect_to projects_path, notice: 'Project was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   def destroy
