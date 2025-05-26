@@ -13,7 +13,7 @@ user = User.new(
   email: 'lethitrang123@gmail.com',
   password: '123456',
   phone_number: Faker::PhoneNumber.phone_number,
-  name: "#{Faker::Name.first_name}.#{Faker::Name.last_name}-#{rand(1000)}",
+  name: Faker::Internet.username(specifier: 5..15).gsub(/[^a-zA-Z0-9.-]/, ''),
   date_of_birth: Faker::Date.between(from: 60.years.ago.to_date + 1.day, to: Date.today - 1.day),
   position: User.positions.keys.sample,
   information: Faker::Lorem.paragraph

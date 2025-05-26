@@ -60,6 +60,8 @@ RSpec.describe 'Projects', type: :request do
   end
 
   describe 'GET /projects/:id' do
+    let!(:member) { create(:member, name: 'Member-1') }
+    let!(:assignment) { create(:assignment, project: project1, member: member) }
     context 'when not signed in' do
       it 'redirects to sign in page' do
         get project_path(project1)
@@ -70,10 +72,11 @@ RSpec.describe 'Projects', type: :request do
     context 'when signed in' do
       before { sign_in user }
 
-      it 'shows the project' do
-        get project_path(project1)
+      it 'shows the project with assignments' do
+        get project_path(project1, assignment_id: assignment.id)
         expect(response).to be_successful
         expect(response.body).to include(project1.name)
+        expect(response.body).to include(assignment.member.name) if assignment.member.present?
       end
     end
   end
