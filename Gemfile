@@ -22,8 +22,6 @@ gem 'stimulus-rails'
 gem 'devise'
 gem 'jbuilder'
 
-gem 'robocop'
-
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
@@ -59,7 +57,11 @@ group :development, :test do
   gem 'brakeman', require: false
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
+  gem 'rubocop', require: false
+  gem 'rubocop-factory_bot', require: false
+  gem 'rubocop-rails', require: false
   gem 'rubocop-rails-omakase', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 group :development do
