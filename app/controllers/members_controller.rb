@@ -1,3 +1,8 @@
+# frozen_string_literal: true
+
+# MembersController handles the CRUD operations for members in the application.
+# It allows users to create, read, update, and delete member records.
+# The controller also includes search functionality for members by name or phone number.
 class MembersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_member, only: %i[show edit update destroy]
@@ -8,12 +13,13 @@ class MembersController < ApplicationController
     @members = @members.page(params[:page]).per(10)
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @member = Member.new
   end
+
+  def edit; end
 
   def create
     @member = Member.new(member_params)
@@ -22,9 +28,6 @@ class MembersController < ApplicationController
     else
       render :new
     end
-  end
-
-  def edit
   end
 
   def update
@@ -50,6 +53,6 @@ class MembersController < ApplicationController
   end
 
   def member_params
-    params.require(:member).permit(:name, :phone_number, :date_of_birth, :position, :information, :avatar)
+    params.expect(member: %i[name phone_number date_of_birth position information avatar])
   end
 end

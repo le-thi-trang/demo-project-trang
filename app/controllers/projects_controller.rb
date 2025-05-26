@@ -1,3 +1,8 @@
+# frozen_string_literal: true
+
+# ProjectsController handles the CRUD operations for projects in the application.
+# It allows users to create, read, update, and delete project records.
+# The controller also includes search functionality for projects by name.
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project, only: %i[show edit update destroy]
@@ -24,6 +29,8 @@ class ProjectsController < ApplicationController
     @project = Project.new
   end
 
+  def edit; end
+
   def create
     @project = Project.new(project_params)
     if @project.save
@@ -31,9 +38,6 @@ class ProjectsController < ApplicationController
     else
       render :new
     end
-  end
-
-  def edit
   end
 
   def update
@@ -57,6 +61,6 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:name, :information, :deadline, :project_type, :status)
+    params.expect(project: %i[name information deadline project_type status])
   end
 end

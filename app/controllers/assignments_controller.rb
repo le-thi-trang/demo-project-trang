@@ -1,3 +1,8 @@
+# frozen_string_literal: true
+
+# AssignmentsController handles the CRUD operations for assignments in the application.
+# It allows users to create, update, and delete assignments for projects.
+# The controller also includes authentication to ensure only signed-in users can manage assignments.
 class AssignmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_assignment, only: %i[update destroy]
@@ -30,6 +35,6 @@ class AssignmentsController < ApplicationController
   end
 
   def assignment_params
-    params.require(:assignment).permit(:project_id, :member_id, :role)
+    params.expect(assignment: %i[project_id member_id role])
   end
 end

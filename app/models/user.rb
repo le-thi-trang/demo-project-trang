@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# User model represents a user who participates in projects.
+# Each user can be assigned to multiple projects with specific roles.
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -33,7 +37,7 @@ class User < ApplicationRecord
       return
     end
 
-    if date_of_birth.present? && date_of_birth > Date.today
+    if date_of_birth.present? && date_of_birth > Time.zone.today
       errors.add(:date_of_birth, "can't be in the future")
     elsif date_of_birth.present? && date_of_birth < 60.years.ago.to_date
       errors.add(:date_of_birth, "can't be older than 60 years")
