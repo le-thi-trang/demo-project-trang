@@ -1,6 +1,6 @@
 class AssignmentsController < ApplicationController
   before_action :authenticate_user!
-
+  before_action :set_assignment, only: %i[update]
   def create
     @assignment = Assignment.new(assignment_params)
     if @assignment.save
