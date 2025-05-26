@@ -1,6 +1,6 @@
 class AssignmentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_assignment, only: %i[update]
+  before_action :set_assignment, only: %i[update destroy]
   def create
     @assignment = Assignment.new(assignment_params)
     if @assignment.save
@@ -8,9 +8,6 @@ class AssignmentsController < ApplicationController
     else
       redirect_to project_path(@assignment.project), alert: @assignment.errors.full_messages.to_sentence
     end
-  end
-
-  def edit
   end
 
   def update
